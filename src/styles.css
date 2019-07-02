@@ -1,0 +1,103 @@
+body {
+    background: #EAEBEC;
+  }
+
+.calc-container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    max-height: 650px;
+    max-width: 400px;
+    height: auto;
+    width: 90%;
+
+    border-radius: 35px;
+    background: #CDCDCD;
+	
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+	margin: auto;
+}
+
+.calc-display-frame {
+    background: #858585;  
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end
+}
+
+.calc-display-text {
+    width: 85%;
+    height: 90%;
+    text-align: right;
+    color: #41403E;
+    overflow: hidden;
+    font-size: 3rem;
+    font-family:  'Orbitron', sans-serif;
+}
+
+
+.calc-button-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.number-button {
+    background-color:#333333;
+    color: white;
+    font-weight: bold;
+    font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    width: 75px;
+    height: 75px;
+    outline: none;
+    flex: 1;
+}
+
+.clear-button {
+    background-color: #bb0f29;
+    color: #fefefe;
+    font-weight: bold;
+    font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    width: 75px;
+    height: 75px;
+    outline: none;
+    flex: 1;
+}
+
+.operation-button {
+    background-color: #004677;
+    color: #fefefe;
+    font-weight: bold;
+    font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    width: 75px;
+    height: 75px;
+    outline: none;
+    flex: 1;
+}
+
+.enter-button {
+    background-color: #bb0f29;
+    color: #fefefe;
+    border: none;
+    font-weight: bold;
+    font-size: 2rem;
+    width: 75px;
+    height: 75px;
+    outline: none;
+    flex: 4;
+}
+
