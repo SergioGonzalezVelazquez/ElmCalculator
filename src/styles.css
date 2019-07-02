@@ -1,19 +1,28 @@
+:root {
+    --back-color: #EAEBEC;
+    --button-color-1: #333333;; /* dark */
+    --button-color-2: #004677;; /* blue */
+    --button-color-3: #bb0f29; /* red */
+
+    --text-color-display: #41403E;
+    --text-color-buttons: #fefefe;
+    
+  }
+
 body {
-    background: #EAEBEC;
+    background:  var(--back-color);
   }
 
 .calc-container{
     display: flex;
     flex-direction: column;
     padding: 30px;
-    max-height: 650px;
-    max-width: 400px;
+    max-height: 500px;
+    max-width: 380px;
     height: auto;
     width: 90%;
-
     border-radius: 35px;
     background: #CDCDCD;
-	
 	position: absolute;
 	top:0;
 	bottom: 0;
@@ -34,10 +43,10 @@ body {
 }
 
 .calc-display-text {
-    width: 85%;
+    width: 90%;
     height: 90%;
     text-align: right;
-    color: #41403E;
+    color:  var(--text-color-display);
     overflow: hidden;
     font-size: 3rem;
     font-family:  'Orbitron', sans-serif;
@@ -54,49 +63,46 @@ body {
 }
 
 .number-button {
-    background-color:#333333;
-    color: white;
+    background-color: var(--button-color-1);
+    color: var(--text-color-buttons);
     font-weight: bold;
     font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 2rem;
-    width: 75px;
-    height: 75px;
+    height: 60px;
     outline: none;
+    box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
     flex: 1;
 }
 
 .clear-button {
-    background-color: #bb0f29;
-    color: #fefefe;
+    background-color: var(--button-color-3);
+    color: var(--text-color-buttons);
     font-weight: bold;
     font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 2rem;
-    width: 75px;
-    height: 75px;
+    height: 60px;
     outline: none;
     flex: 1;
 }
 
 .operation-button {
-    background-color: #004677;
-    color: #fefefe;
+    background-color: var(--button-color-2);
+    color: var(--text-color-buttons);
     font-weight: bold;
     font:24px "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 2rem;
-    width: 75px;
-    height: 75px;
+    height: 60px;
     outline: none;
     flex: 1;
 }
 
 .enter-button {
-    background-color: #bb0f29;
-    color: #fefefe;
+    background-color: var(--button-color-3);
+    color: var(--text-color-buttons);
     border: none;
     font-weight: bold;
     font-size: 2rem;
-    width: 75px;
-    height: 75px;
+    height: 60px;
     outline: none;
     flex: 4;
 }

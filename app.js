@@ -8260,7 +8260,26 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _user$project$Main$operationToString = function (operation) {
+var _user$project$Calculator_Types$Model = F4(
+	function (a, b, c, d) {
+		return {display: a, firstTerm: b, appendNumber: c, operation: d};
+	});
+var _user$project$Calculator_Types$NoOperation = {ctor: 'NoOperation'};
+var _user$project$Calculator_Types$Divide = {ctor: 'Divide'};
+var _user$project$Calculator_Types$Multiply = {ctor: 'Multiply'};
+var _user$project$Calculator_Types$Substract = {ctor: 'Substract'};
+var _user$project$Calculator_Types$Add = {ctor: 'Add'};
+var _user$project$Calculator_Types$Enter = {ctor: 'Enter'};
+var _user$project$Calculator_Types$Dot = {ctor: 'Dot'};
+var _user$project$Calculator_Types$Operator = function (a) {
+	return {ctor: 'Operator', _0: a};
+};
+var _user$project$Calculator_Types$Value = function (a) {
+	return {ctor: 'Value', _0: a};
+};
+var _user$project$Calculator_Types$Clear = {ctor: 'Clear'};
+
+var _user$project$Calculator_Utils$operationToString = function (operation) {
 	var _p0 = operation;
 	switch (_p0.ctor) {
 		case 'Add':
@@ -8275,11 +8294,11 @@ var _user$project$Main$operationToString = function (operation) {
 			return '';
 	}
 };
-var _user$project$Main$calculateOperation = F3(
+var _user$project$Calculator_Utils$calculateOperation = F3(
 	function (x, y, operation) {
 		var _p1 = operation;
 		switch (_p1.ctor) {
-			case 'None':
+			case 'NoOperation':
 				return x;
 			case 'Add':
 				return x + y;
@@ -8291,9 +8310,46 @@ var _user$project$Main$calculateOperation = F3(
 				return x / y;
 		}
 	});
-var _user$project$Main$onDotSelected = function (model) {
+var _user$project$Calculator_Utils$enter = function (model) {
 	var _p2 = _elm_lang$core$String$toFloat(model.display);
 	if (_p2.ctor === 'Err') {
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{display: 'Err', firstTerm: 0, operation: _user$project$Calculator_Types$NoOperation, appendNumber: false});
+	} else {
+		var _p3 = _p2._0;
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{
+				display: _elm_lang$core$Basics$toString(
+					A3(_user$project$Calculator_Utils$calculateOperation, model.firstTerm, _p3, model.operation)),
+				firstTerm: A3(_user$project$Calculator_Utils$calculateOperation, model.firstTerm, _p3, model.operation),
+				operation: _user$project$Calculator_Types$NoOperation,
+				appendNumber: false
+			});
+	}
+};
+var _user$project$Calculator_Utils$onOperatorSelected = F2(
+	function (model, operation) {
+		var _p4 = _elm_lang$core$String$toFloat(model.display);
+		if (_p4.ctor === 'Err') {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{display: 'Err', firstTerm: 0, operation: _user$project$Calculator_Types$NoOperation, appendNumber: false});
+		} else {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{
+					display: _user$project$Calculator_Utils$operationToString(operation),
+					firstTerm: _p4._0,
+					operation: operation,
+					appendNumber: false
+				});
+		}
+	});
+var _user$project$Calculator_Utils$onDotSelected = function (model) {
+	var _p5 = _elm_lang$core$String$toFloat(model.display);
+	if (_p5.ctor === 'Err') {
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{display: '0.', appendNumber: true});
@@ -8306,7 +8362,7 @@ var _user$project$Main$onDotSelected = function (model) {
 			});
 	}
 };
-var _user$project$Main$onNumberSelected = F2(
+var _user$project$Calculator_Utils$onNumberSelected = F2(
 	function (model, num) {
 		return model.appendNumber ? _elm_lang$core$Native_Utils.update(
 			model,
@@ -8322,100 +8378,26 @@ var _user$project$Main$onNumberSelected = F2(
 				appendNumber: true
 			});
 	});
-var _user$project$Main$calculatorDisplay = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('calc-display-frame'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('calc-display-text'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(model.display),
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Main$Model = F4(
-	function (a, b, c, d) {
-		return {display: a, firstTerm: b, appendNumber: c, operation: d};
-	});
-var _user$project$Main$None = {ctor: 'None'};
-var _user$project$Main$initialModel = {display: '0', firstTerm: 0, appendNumber: false, operation: _user$project$Main$None};
-var _user$project$Main$onOperatorSelected = F2(
-	function (model, operation) {
-		var _p3 = _elm_lang$core$String$toFloat(model.display);
-		if (_p3.ctor === 'Err') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{display: 'Err', firstTerm: 0, operation: _user$project$Main$None, appendNumber: false});
-		} else {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{
-					display: _user$project$Main$operationToString(operation),
-					firstTerm: _p3._0,
-					operation: operation,
-					appendNumber: false
-				});
-		}
-	});
-var _user$project$Main$enter = function (model) {
-	var _p4 = _elm_lang$core$String$toFloat(model.display);
-	if (_p4.ctor === 'Err') {
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{display: 'Err', firstTerm: 0, operation: _user$project$Main$None, appendNumber: false});
-	} else {
-		var _p5 = _p4._0;
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{
-				display: _elm_lang$core$Basics$toString(
-					A3(_user$project$Main$calculateOperation, model.firstTerm, _p5, model.operation)),
-				firstTerm: A3(_user$project$Main$calculateOperation, model.firstTerm, _p5, model.operation),
-				operation: _user$project$Main$None,
-				appendNumber: false
-			});
-	}
-};
-var _user$project$Main$update = F2(
+
+var _user$project$Calculator_State$initialModel = {display: '0', firstTerm: 0, appendNumber: false, operation: _user$project$Calculator_Types$NoOperation};
+var _user$project$Calculator_State$update = F2(
 	function (msg, model) {
-		var _p6 = msg;
-		switch (_p6.ctor) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
 			case 'Clear':
-				return _user$project$Main$initialModel;
+				return _user$project$Calculator_State$initialModel;
 			case 'Value':
-				return A2(_user$project$Main$onNumberSelected, model, _p6._0);
+				return A2(_user$project$Calculator_Utils$onNumberSelected, model, _p0._0);
 			case 'Dot':
-				return _user$project$Main$onDotSelected(model);
+				return _user$project$Calculator_Utils$onDotSelected(model);
 			case 'Operator':
-				return A2(_user$project$Main$onOperatorSelected, model, _p6._0);
+				return A2(_user$project$Calculator_Utils$onOperatorSelected, model, _p0._0);
 			default:
-				return _user$project$Main$enter(model);
+				return _user$project$Calculator_Utils$enter(model);
 		}
 	});
-var _user$project$Main$Divide = {ctor: 'Divide'};
-var _user$project$Main$Multiply = {ctor: 'Multiply'};
-var _user$project$Main$Substract = {ctor: 'Substract'};
-var _user$project$Main$Add = {ctor: 'Add'};
-var _user$project$Main$Enter = {ctor: 'Enter'};
-var _user$project$Main$Dot = {ctor: 'Dot'};
-var _user$project$Main$Operator = function (a) {
-	return {ctor: 'Operator', _0: a};
-};
-var _user$project$Main$operationButton = function (operation) {
+
+var _user$project$Calculator_View$operationButton = function (operation) {
 	return A2(
 		_elm_lang$html$Html$button,
 		{
@@ -8424,21 +8406,18 @@ var _user$project$Main$operationButton = function (operation) {
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$Main$Operator(operation)),
+					_user$project$Calculator_Types$Operator(operation)),
 				_1: {ctor: '[]'}
 			}
 		},
 		{
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(
-				_user$project$Main$operationToString(operation)),
+				_user$project$Calculator_Utils$operationToString(operation)),
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$Value = function (a) {
-	return {ctor: 'Value', _0: a};
-};
-var _user$project$Main$numButton = function (n) {
+var _user$project$Calculator_View$numButton = function (n) {
 	return A2(
 		_elm_lang$html$Html$button,
 		{
@@ -8447,7 +8426,7 @@ var _user$project$Main$numButton = function (n) {
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$Main$Value(n)),
+					_user$project$Calculator_Types$Value(n)),
 				_1: {ctor: '[]'}
 			}
 		},
@@ -8458,8 +8437,7 @@ var _user$project$Main$numButton = function (n) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$Clear = {ctor: 'Clear'};
-var _user$project$Main$calculatorButtons = function (model) {
+var _user$project$Calculator_View$calculatorButtons = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
@@ -8474,13 +8452,13 @@ var _user$project$Main$calculatorButtons = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: _user$project$Main$numButton(7),
+					_0: _user$project$Calculator_View$numButton(7),
 					_1: {
 						ctor: '::',
-						_0: _user$project$Main$numButton(8),
+						_0: _user$project$Calculator_View$numButton(8),
 						_1: {
 							ctor: '::',
-							_0: _user$project$Main$numButton(9),
+							_0: _user$project$Calculator_View$numButton(9),
 							_1: {
 								ctor: '::',
 								_0: A2(
@@ -8490,7 +8468,7 @@ var _user$project$Main$calculatorButtons = function (model) {
 										_0: _elm_lang$html$Html_Attributes$class('clear-button'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Clear),
+											_0: _elm_lang$html$Html_Events$onClick(_user$project$Calculator_Types$Clear),
 											_1: {ctor: '[]'}
 										}
 									},
@@ -8515,16 +8493,16 @@ var _user$project$Main$calculatorButtons = function (model) {
 					},
 					{
 						ctor: '::',
-						_0: _user$project$Main$numButton(4),
+						_0: _user$project$Calculator_View$numButton(4),
 						_1: {
 							ctor: '::',
-							_0: _user$project$Main$numButton(5),
+							_0: _user$project$Calculator_View$numButton(5),
 							_1: {
 								ctor: '::',
-								_0: _user$project$Main$numButton(6),
+								_0: _user$project$Calculator_View$numButton(6),
 								_1: {
 									ctor: '::',
-									_0: _user$project$Main$operationButton(_user$project$Main$Divide),
+									_0: _user$project$Calculator_View$operationButton(_user$project$Calculator_Types$Divide),
 									_1: {ctor: '[]'}
 								}
 							}
@@ -8541,16 +8519,16 @@ var _user$project$Main$calculatorButtons = function (model) {
 						},
 						{
 							ctor: '::',
-							_0: _user$project$Main$numButton(1),
+							_0: _user$project$Calculator_View$numButton(1),
 							_1: {
 								ctor: '::',
-								_0: _user$project$Main$numButton(2),
+								_0: _user$project$Calculator_View$numButton(2),
 								_1: {
 									ctor: '::',
-									_0: _user$project$Main$numButton(3),
+									_0: _user$project$Calculator_View$numButton(3),
 									_1: {
 										ctor: '::',
-										_0: _user$project$Main$operationButton(_user$project$Main$Multiply),
+										_0: _user$project$Calculator_View$operationButton(_user$project$Calculator_Types$Multiply),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -8567,7 +8545,7 @@ var _user$project$Main$calculatorButtons = function (model) {
 							},
 							{
 								ctor: '::',
-								_0: _user$project$Main$numButton(0),
+								_0: _user$project$Calculator_View$numButton(0),
 								_1: {
 									ctor: '::',
 									_0: A2(
@@ -8577,7 +8555,7 @@ var _user$project$Main$calculatorButtons = function (model) {
 											_0: _elm_lang$html$Html_Attributes$class('number-button'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Dot),
+												_0: _elm_lang$html$Html_Events$onClick(_user$project$Calculator_Types$Dot),
 												_1: {ctor: '[]'}
 											}
 										},
@@ -8588,10 +8566,10 @@ var _user$project$Main$calculatorButtons = function (model) {
 										}),
 									_1: {
 										ctor: '::',
-										_0: _user$project$Main$operationButton(_user$project$Main$Add),
+										_0: _user$project$Calculator_View$operationButton(_user$project$Calculator_Types$Add),
 										_1: {
 											ctor: '::',
-											_0: _user$project$Main$operationButton(_user$project$Main$Substract),
+											_0: _user$project$Calculator_View$operationButton(_user$project$Calculator_Types$Substract),
 											_1: {ctor: '[]'}
 										}
 									}
@@ -8615,7 +8593,7 @@ var _user$project$Main$calculatorButtons = function (model) {
 											_0: _elm_lang$html$Html_Attributes$class('enter-button'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Enter),
+												_0: _elm_lang$html$Html_Events$onClick(_user$project$Calculator_Types$Enter),
 												_1: {ctor: '[]'}
 											}
 										},
@@ -8633,7 +8611,32 @@ var _user$project$Main$calculatorButtons = function (model) {
 			}
 		});
 };
-var _user$project$Main$mainContent = function (model) {
+var _user$project$Calculator_View$calculatorDisplay = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('calc-display-frame'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('calc-display-text'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(model.display),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Calculator_View$mainContent = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -8643,26 +8646,27 @@ var _user$project$Main$mainContent = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _user$project$Main$calculatorDisplay(model),
+			_0: _user$project$Calculator_View$calculatorDisplay(model),
 			_1: {
 				ctor: '::',
-				_0: _user$project$Main$calculatorButtons(model),
+				_0: _user$project$Calculator_View$calculatorButtons(model),
 				_1: {ctor: '[]'}
 			}
 		});
 };
-var _user$project$Main$view = function (model) {
+var _user$project$Calculator_View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _user$project$Main$mainContent(model),
+			_0: _user$project$Calculator_View$mainContent(model),
 			_1: {ctor: '[]'}
 		});
 };
+
 var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
-	{model: _user$project$Main$initialModel, view: _user$project$Main$view, update: _user$project$Main$update})();
+	{model: _user$project$Calculator_State$initialModel, view: _user$project$Calculator_View$view, update: _user$project$Calculator_State$update})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

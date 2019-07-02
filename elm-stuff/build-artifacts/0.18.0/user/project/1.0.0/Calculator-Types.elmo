@@ -1,0 +1,18 @@
+var _user$project$Calculator_Types$Model = F4(
+	function (a, b, c, d) {
+		return {display: a, firstTerm: b, appendNumber: c, operation: d};
+	});
+var _user$project$Calculator_Types$NoOperation = {ctor: 'NoOperation'};
+var _user$project$Calculator_Types$Divide = {ctor: 'Divide'};
+var _user$project$Calculator_Types$Multiply = {ctor: 'Multiply'};
+var _user$project$Calculator_Types$Substract = {ctor: 'Substract'};
+var _user$project$Calculator_Types$Add = {ctor: 'Add'};
+var _user$project$Calculator_Types$Enter = {ctor: 'Enter'};
+var _user$project$Calculator_Types$Dot = {ctor: 'Dot'};
+var _user$project$Calculator_Types$Operator = function (a) {
+	return {ctor: 'Operator', _0: a};
+};
+var _user$project$Calculator_Types$Value = function (a) {
+	return {ctor: 'Value', _0: a};
+};
+var _user$project$Calculator_Types$Clear = {ctor: 'Clear'};

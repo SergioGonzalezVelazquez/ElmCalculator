@@ -1,0 +1,17 @@
+var _user$project$Calculator_State$initialModel = {display: '0', firstTerm: 0, appendNumber: false, operation: _user$project$Calculator_Types$NoOperation};
+var _user$project$Calculator_State$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Clear':
+				return _user$project$Calculator_State$initialModel;
+			case 'Value':
+				return A2(_user$project$Calculator_Utils$onNumberSelected, model, _p0._0);
+			case 'Dot':
+				return _user$project$Calculator_Utils$onDotSelected(model);
+			case 'Operator':
+				return A2(_user$project$Calculator_Utils$onOperatorSelected, model, _p0._0);
+			default:
+				return _user$project$Calculator_Utils$enter(model);
+		}
+	});
