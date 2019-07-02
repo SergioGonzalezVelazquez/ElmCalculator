@@ -1,18 +1,18 @@
-module Main exposing (main)
-
-{--Main of the app
-
+{-
+   Archivo principal del proyecto
 -}
 
 
-import Html exposing (beginnerProgram)
+module Main exposing (main)
+
 import Calculator.State exposing (initialModel, update)
 import Calculator.Types exposing (Model, Msg)
 import Calculator.View exposing (view)
+import Html exposing (beginnerProgram)
 
 
 
--- Entry point
+-- Punto de entrada del programa
 
 
 main : Program Never Model Msg

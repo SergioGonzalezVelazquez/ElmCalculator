@@ -1,3 +1,6 @@
+{-
+    Componentes visuales de la aplicación
+-}
 module Calculator.View exposing (view)
 
 import Html exposing (..)
@@ -7,8 +10,6 @@ import Html.Events exposing (onClick)
 import Calculator.Types exposing (Model,  Msg(..), Operator(..))
 import Calculator.Utils exposing (..)
 
-
--- View
 
 
 view : Model -> Html Msg
