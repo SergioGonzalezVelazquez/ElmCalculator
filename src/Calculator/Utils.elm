@@ -1,5 +1,6 @@
 {-
-
+    Definición de funciones utilizadas para actualizar 
+    el estado de la aplicación
 -}
 module Calculator.Utils exposing (calculateOperation, enter, onDotSelected, onNumberSelected, onOperatorSelected, operationToString)
 
