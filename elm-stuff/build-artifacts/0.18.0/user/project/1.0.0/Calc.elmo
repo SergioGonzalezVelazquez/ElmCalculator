@@ -1,2 +1,0 @@
-var _user$project$Calc$main = _elm_lang$html$Html$beginnerProgram(
-	{model: _user$project$Calculator_State$initialModel, view: _user$project$Calculator_View$view, update: _user$project$Calculator_State$update})();
