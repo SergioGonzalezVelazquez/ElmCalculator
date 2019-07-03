@@ -1,7 +1,9 @@
 {-
-    Módulo que contiene el estado inicial de la aplicación y la 
-    función que actualiza el estado
+   Módulo que contiene el estado inicial de la aplicación y la
+   función que actualiza el estado
 -}
+
+
 module Calculator.State exposing (initialModel, update)
 
 import Calculator.Types exposing (Model, Msg(..), Operator(..))
@@ -25,7 +27,7 @@ initialModel =
 
 
 {-
-   Función que actualiza el estado de 
+   Función que actualiza el estado de
    la aplicación
 -}
 

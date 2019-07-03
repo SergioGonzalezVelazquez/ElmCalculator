@@ -1,14 +1,20 @@
 {-
-    Definición de funciones utilizadas para actualizar 
-    el estado de la aplicación
+   Definición de funciones utilizadas para actualizar
+   el estado de la aplicación
 -}
+
+
 module Calculator.Utils exposing (calculateOperation, enter, onDotSelected, onNumberSelected, onOperatorSelected, operationToString)
 
 import Calculator.Types exposing (Model, Msg(..), Operator(..))
 
+
+
 {-
-    Pulsación de un número en la calculadora
+   Pulsación de un número en la calculadora
 -}
+
+
 onNumberSelected : Model -> Int -> Model
 onNumberSelected model num =
     if model.appendNumber then
@@ -17,9 +23,13 @@ onNumberSelected model num =
     else
         { model | display = toString num, appendNumber = True }
 
+
+
 {-
-    Pulsación del botón (.) para decimales
+   Pulsación del botón (.) para decimales
 -}
+
+
 onDotSelected : Model -> Model
 onDotSelected model =
     case String.toFloat model.display of
@@ -29,9 +39,13 @@ onDotSelected model =
         Ok val ->
             { model | display = model.display ++ ".", appendNumber = True }
 
+
+
 {-
-    Pulsación de un operador en la calculadora
+   Pulsación de un operador en la calculadora
 -}
+
+
 onOperatorSelected : Model -> Operator -> Model
 onOperatorSelected model operation =
     case String.toFloat model.display of
@@ -41,10 +55,14 @@ onOperatorSelected model operation =
         Ok val ->
             { model | display = operationToString operation, firstTerm = val, operation = operation, appendNumber = False }
 
+
+
 {-
-    Evento del botón ENTER. Utiliza el firstTerm almacenado para aplicar operation seleccionado
-    al valor que muestre el display de la calculadora (segundo operando)
+   Evento del botón ENTER. Utiliza el firstTerm almacenado para aplicar operation seleccionado
+   al valor que muestre el display de la calculadora (segundo operando)
 -}
+
+
 enter : Model -> Model
 enter model =
     case String.toFloat model.display of
@@ -59,9 +77,13 @@ enter model =
                 , appendNumber = False
             }
 
+
+
 {-
-    Retorna el resultado de aplicar un Operator a dos operandos
+   Retorna el resultado de aplicar un Operator a dos operandos
 -}
+
+
 calculateOperation : Float -> Float -> Operator -> Float
 calculateOperation x y operation =
     case operation of
@@ -82,8 +104,8 @@ calculateOperation x y operation =
 
 
 
-{- 
-    Retona el símbolo correspondiente a un Operator
+{-
+   Retona el símbolo correspondiente a un Operator
 -}
 
 
