@@ -15,3 +15,8 @@ https://serglezv.neocities.org/ELM-Calculator/index.html
 </p>
 
 ---
+
+## Ejecución
+
+1. Compilación: `make run
+1. Abrir archivo 'index.html' con un navegador`
